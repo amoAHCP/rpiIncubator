@@ -34,6 +34,7 @@ public class WebSocketRepository {
 
     /**
      * remove a server socket
+     *
      * @param webSocket
      */
     public void removeWebSocket(ServerWebSocket webSocket) {

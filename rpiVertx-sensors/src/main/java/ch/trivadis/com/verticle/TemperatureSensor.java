@@ -15,11 +15,10 @@ import java.util.concurrent.Executors;
  * Created by Andy Moncsek on 20.04.15.
  */
 public class TemperatureSensor extends AbstractVerticle {
-    private String url=  "temperature";
-    private final String URL_DEFAULT=  "temperature";
+    private String url = "temperature";
+    private final String URL_DEFAULT = "temperature";
     private final WebSocketRepository repository = new WebSocketRepository();
     private final ExecutorService executor = Executors.newCachedThreadPool();
-
 
 
     @Override
@@ -27,9 +26,9 @@ public class TemperatureSensor extends AbstractVerticle {
         initConfiguration(config());
         vertx.createHttpServer().websocketHandler(ws -> {
             if (ws.path().toLowerCase().equals(url)) {
-                ws.handler((event)->currentTemperatureHandler(ws,event));
+                ws.handler((event) -> currentTemperatureHandler(ws, event));
                 ws.endHandler((event) -> repository.removeWebSocket(ws));
-                ws.closeHandler((event)-> repository.removeWebSocket(ws));
+                ws.closeHandler((event) -> repository.removeWebSocket(ws));
                 repository.addWebSocket(ws);
 
             }
@@ -37,13 +36,12 @@ public class TemperatureSensor extends AbstractVerticle {
 
         }).listen(8080);
 
-        vertx.setPeriodic(5000,(eventTime)->
-            CompletableFuture.
-                    supplyAsync(() -> readTemperatureFromDevice(), executor).
-                    thenAccept((temperature) -> repository.getWebSockets().forEach(ws -> ws.writeMessage(Buffer.buffer().appendString(temperature))))
+        vertx.setPeriodic(5000, (eventTime) ->
+                        CompletableFuture.
+                                supplyAsync(() -> readTemperatureFromDevice(), executor).
+                                thenAccept((temperature) -> repository.getWebSockets().forEach(ws -> ws.writeMessage(Buffer.buffer().appendString(temperature))))
         );
     }
-
 
 
     private void currentTemperatureHandler(final ServerWebSocket ws, final Buffer buffer) {
@@ -54,7 +52,6 @@ public class TemperatureSensor extends AbstractVerticle {
     }
 
 
-
     private String readTemperatureFromDevice() {
         // read data from ??whatever ??
         System.out.println("read ");
@@ -63,6 +60,7 @@ public class TemperatureSensor extends AbstractVerticle {
 
     /**
      * init configuration from config file or take default values
+     *
      * @param config
      */
     private void initConfiguration(JsonObject config) {
