@@ -15,8 +15,8 @@ import java.util.concurrent.Executors;
  * Created by Andy Moncsek on 20.04.15.
  */
 public class TemperatureSensor extends AbstractVerticle {
-    private String url = "temperature";
-    private final String URL_DEFAULT = "temperature";
+    private String url = "";
+    private final String URL_DEFAULT = "/temperature";
     private final WebSocketRepository repository = new WebSocketRepository();
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
