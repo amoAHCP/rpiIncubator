@@ -20,9 +20,7 @@ public class TemperatureSensor extends AbstractVerticle {
     private final WebSocketRepository repository = new WebSocketRepository();
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
-    public static void main(String[] args) {
-        System.out.println("sddfgd");
-    }
+
 
     @Override
     public void start() throws Exception {
