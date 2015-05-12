@@ -13,10 +13,10 @@
 
       <!--Vertx module name-->
       <module.name>${artifactId}-${version}-fat.jar</module.name>
-      <main-verticle>ch.trivadis.com.verticle.TemperatureSensor</main-verticle>
+      <main-verticle>ch.trivadis.com.verticle.UltrasonicSensor</main-verticle>
 
       <!--Dependency versions-->
-      <vertx.version>3.0.0-milestone4</vertx.version>
+      <vertx.version>3.0.0-milestone5</vertx.version>
 
       <junit.version>4.11</junit.version>
 
@@ -82,6 +82,17 @@
           <version>${vertx.version}</version>
           <type>test-jar</type>
           <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>com.pi4j</groupId>
+          <artifactId>pi4j-core</artifactId>
+          <version>0.0.5</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>com.pi4j</groupId>
+                  <artifactId>pi4j-native</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
       <dependency>
         <groupId>junit</groupId>

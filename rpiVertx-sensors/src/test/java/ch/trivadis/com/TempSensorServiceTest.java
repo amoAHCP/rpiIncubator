@@ -1,9 +1,7 @@
 package ch.trivadis.com;
 
-import io.vertx.core.Handler;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;
-import io.vertx.core.http.WebSocket;
 import io.vertx.core.http.impl.ws.WebSocketFrameImpl;
 import io.vertx.test.core.VertxTestBase;
 import org.junit.Test;
@@ -33,15 +31,9 @@ public class TempSensorServiceTest extends VertxTestBase {
                 createHttpClient(new HttpClientOptions());
     }
 
-    private HttpClient getClient(final Handler<WebSocket> handler, final String path) {
-
-        HttpClient client = vertx.
-                createHttpClient(new HttpClientOptions()).websocket(8080, "localhost", path, handler);
-
-        return client;
-    }
 
     @Test
+    //@Ignore
     public void simpleConnectionTest() {
         client.websocket(8080, "localhost", "/temperature", ws -> {
             long startTime = System.currentTimeMillis();
