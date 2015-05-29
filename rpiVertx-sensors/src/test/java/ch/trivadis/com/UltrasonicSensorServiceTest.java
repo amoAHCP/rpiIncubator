@@ -19,10 +19,10 @@ public class UltrasonicSensorServiceTest extends VertxTestBase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-       CountDownLatch latch = new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(1);
         DeploymentOptions options = new DeploymentOptions().setInstances(1);
-        options.setConfig(new JsonObject().put("testmode", true).put("scheduleTime","500"));
-        vertx.deployVerticle("ch.trivadis.com.verticle.UltrasonicSensor",options,asyncResult ->{
+        options.setConfig(new JsonObject().put("testmode", true).put("scheduleTime", "500"));
+        vertx.deployVerticle("ch.trivadis.com.verticle.UltrasonicWebSocketSensor", options, asyncResult -> {
             // Deployment is asynchronous and this this handler will be called when it's complete (or failed)
             assertTrue(asyncResult.succeeded());
             // If deployed correctly then start the tests!
@@ -75,6 +75,6 @@ public class UltrasonicSensorServiceTest extends VertxTestBase {
         });
 
 
-       latch.await();
+        latch.await();
     }
 }

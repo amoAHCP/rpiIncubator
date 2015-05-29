@@ -5,7 +5,9 @@ import ch.trivadis.com.sensors.GrovePi;
 import ch.trivadis.com.sensors.Ultrasonic;
 import ch.trivadis.com.util.WebSocketRepository;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
+import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.ServerWebSocket;
 import io.vertx.core.json.JsonObject;
@@ -19,7 +21,7 @@ import java.util.function.Consumer;
 /**
  * Created by Andy Moncsek on 20.04.15.
  */
-public class UltrasonicSensor extends AbstractVerticle {
+public class UltrasonicWebSocketSensor extends AbstractVerticle {
     private String url = "";
     private int port = 0;
     private int scheduleTime = 0;
@@ -109,6 +111,16 @@ public class UltrasonicSensor extends AbstractVerticle {
         port = Integer.valueOf(config.getString("port", PORT_DEFAULT));
         testmode = config.getBoolean("testmode", TESTMODE);
         scheduleTime = Integer.valueOf(config.getString("scheduleTime", SCHEDULE_TIME));
+    }
+
+    /**
+     * for testing purposes
+     * @param args
+     */
+    public static void main(String[] args) {
+        DeploymentOptions options = new DeploymentOptions().setInstances(1);
+        options.setConfig(new JsonObject().put("testmode", true).put("scheduleTime", "500"));
+        Vertx.vertx().deployVerticle(new UltrasonicWebSocketSensor(), options);
     }
 
 
