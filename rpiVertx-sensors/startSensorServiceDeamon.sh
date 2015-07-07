@@ -1,0 +1,1 @@
+sudo java -classpath '.:classes:*:classes:/opt/pi4j/lib/*' -jar target/rpiVertx-sensors-1.0-SNAPSHOT-fat.jar -conf serviceConfig.json &
